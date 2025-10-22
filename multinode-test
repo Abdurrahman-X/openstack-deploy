@@ -1,0 +1,37 @@
+# These initial groups are the only groups required to be modified. The
+# additional groups are for more control of the environment.
+[control]
+# These hostname must be resolvable from your deployment host
+controller ansible_connection=local api_interface=enp0s25
+
+
+# The above can also be specified as follows:
+#control[01:03]     ansible_user=kolla
+
+# The network nodes are where your l3-agent and loadbalancers will run
+# This can be the same as a host in the control group
+[network]
+controller 
+
+
+[compute]
+compute1  ansible_host=192.168.100.104 ansible_user=ubuntu-desktop api_interface=eno1
+compute2  ansible_host=192.168.100.105 ansible_user=ubuntu-desktop api_interface=eno1
+
+
+[monitoring]
+controller
+
+# When compute nodes and control nodes use different interfaces,
+# you need to comment out "api_interface" and other interfaces from the globals.yml
+# and specify like below:
+#compute01 neutron_external_interface=eth0 api_interface=em1 tunnel_interface=em1
+
+[storage]
+compute2
+
+[loadbalancer]
+controller
+
+[baremetal]
+
